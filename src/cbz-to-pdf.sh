@@ -11,7 +11,7 @@ DPI=${2:-192}
 #source ~/src/img2pdf/bin/activate
 #set -o nounset
 
-for INPUT_FILE in `ls ${INPUT_GLOB}`
+for INPUT_FILE in "${INPUT_GLOB}"
 do
 	DIR=`dirname "${INPUT_FILE}"`
 	OUTPUT_FILE=`basename "${INPUT_FILE}" .cbz`.pdf
@@ -28,16 +28,14 @@ do
 		echo "JPEGS"
 		for FILE in `ls ${TMP_DIR}/*.jpg`
 		do
-		  convert -density ${DPI} -units pixelsperinch ${FILE} ${FILE}.dpiset &
+		  convert -density ${DPI} -units pixelsperinch ${FILE} ${FILE}.dpiset
 		done
-		wait
 	else
 		echo "PNGS"
 		for FILE in `ls ${TMP_DIR}/*.png`
 		do
-		  convert -background white -alpha remove -alpha off -density ${DPI} -units pixelsperinch ${FILE} ${FILE}.dpiset &
+		  convert -background white -alpha remove -alpha off -density ${DPI} -units pixelsperinch ${FILE} ${FILE}.dpiset
 		done
-		wait
 	fi
 	set -e
 
@@ -52,4 +50,3 @@ do
 done
 
 echo 'All done!'
-
